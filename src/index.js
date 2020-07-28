@@ -1,3 +1,18 @@
+let addToy = false;
+
+const likesBar = document.querySelector('div.likes-section')
+const addBtn = document.querySelector("#new-toy-btn");
+const toyFormContainer = document.querySelector(".container");
+
+addBtn.addEventListener("click", () => {
+    addToy = !addToy;
+    if (addToy) {
+        toyFormContainer.style.display = "block";
+    } else {
+        toyFormContainer.style.display = "none";
+    }
+})
+
 function fetchImages() {
     fetch("http://localhost:3000/api/v1/images")
         .then(response => response.json())
@@ -40,7 +55,6 @@ function displayImage(image) {
 
     button.addEventListener("click", () => {
         fetch("http://localhost:3000/api/v1/images/" + image.id, {
-            mode: 'no-cors',
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -56,8 +70,6 @@ function displayImage(image) {
             })
     })
 
-    // debugger
-
     let form = document.querySelector(".comment-form")
     let input = document.querySelector(".comment-input")
 
@@ -67,7 +79,7 @@ function displayImage(image) {
 
         fetch("http://localhost:3000/api/v1/comments", {
             method: "POST",
-            headers:{
+            headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -75,14 +87,46 @@ function displayImage(image) {
                 imageId: image.id
             })
         })
-        .then(response => response.json())
-        .then(newComment => {
-            let li = document.createElement("li")
-            li.textContent = newComment.content
-            ul.appendChild(li)
-            input.value = ""
-        })
+            .then(response => response.json())
+            .then(newComment => {
+                let li = document.createElement("li")
+                li.textContent = newComment.content
+                ul.appendChild(li)
+                input.value = ""
+            })
     })
+
+    function createDownVoteButton() {
+        const dislike = document.createElement('button')
+        dislike.innerText = '💔'
+        dislike.className = "dislike"
+        likesBar.append(dislike)
+        return dislike
+    }
+
+    const dislikeBtn = createDownVoteButton()
+
+    dislikeBtn.addEventListener('click', () => {
+
+        const configObj = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                likes: --image.likes
+            })
+        }
+
+        fetch("http://localhost:3000/api/v1/images/" + image.id, configObj)
+            .then(res => res.json())
+            .then(updatedImage => {
+                image = updatedImage
+                span.innerText = `${image.likes} likes`
+            })
+
+    })
+
 }
 
 fetchImages()

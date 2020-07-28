@@ -11,17 +11,58 @@
     <!-- logo -->
     <img class="logo" src="assets/dogegram-logo.png" />
 
-    <!-- <img class="bg" src="https://wallpapercave.com/wp/wp5413627.jpg" /> -->
+    <div id="toy-header">
+      <img
+        src="https://fontmeme.com/permalink/180719/67429e6afec53d21d64643101c43f029.png"
+        alt="toy-header"
+      />
+    </div>
+
+    <div class="container">
+      <form class="add-toy-form">
+        <h3>Create a toy!</h3>
+
+        <input
+          type="text"
+          name="name"
+          value=""
+          placeholder="Enter a toy's name..."
+          class="input-text"
+        />
+        <br />
+        <input
+          type="text"
+          name="image"
+          value=""
+          placeholder="Enter a toy's image URL..."
+          class="input-text"
+        />
+        <br />
+        <input
+          type="submit"
+          name="submit"
+          value="Create New Toy"
+          class="submit"
+        />
+      </form>
+    </div>
+    <p style="text-align: center;">
+      Andy needs your help! <button id="new-toy-btn">Add a new toy!</button>
+    </p>
+
+    <div id="toy-collection"></div>
 
     <!-- image card -->
     <div class="image-container">
+
       <div class="image-card">
+
         <h2 class="title">Title of image goes here</h2>
         <img src="./assets/image-placeholder.jpg" class="image" />
 
         <div class="likes-section">
           <span class="likes">0 likes</span>
-          <button class="like-button">♥</button>
+          <button class="like-button">❤️</button>
         </div>
 
         <ul class="comments">
@@ -39,7 +80,9 @@
           />
           <button class="comment-button" type="submit">Post</button>
         </form>
+        
       </div>
+
     </div>
   </body>
 </html>
