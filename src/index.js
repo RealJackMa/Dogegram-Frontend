@@ -1,132 +1,228 @@
-let addToy = false;
+let addImage = false;
 
-const likesBar = document.querySelector('div.likes-section')
-const addBtn = document.querySelector("#new-toy-btn");
-const toyFormContainer = document.querySelector(".container");
+document.addEventListener("DOMContentLoaded", () => {
 
-addBtn.addEventListener("click", () => {
-    addToy = !addToy;
-    if (addToy) {
-        toyFormContainer.style.display = "block";
-    } else {
-        toyFormContainer.style.display = "none";
-    }
-})
+    const newImageButton = document.querySelector("#new-image-btn");
+    const imageFormContainer = document.querySelector("div.container");
+    const imageForm = document.querySelector(".add-image-form")
+    const imageContainer = document.querySelector("div.image-container")
 
-function fetchImages() {
-    fetch("http://localhost:3000/api/v1/images")
-        .then(response => response.json())
-        .then(images => showImages(images))
-}
-
-function showImages(images) {
-    images.forEach(image => displayImage(image))
-}
-
-function displayImage(image) {
-
-    let h2 = document.querySelector("h2")
-    h2.innerText = image.title
-
-    let img = document.querySelector(".image")
-    img.src = image.url
-
-    let span = document.querySelector(".likes")
-    span.innerText = image.likes + " Likes"
-
-    let ul = document.querySelector(".comments")
-    ul.textContent = ""
-
-    // Delete Comment by Clicking
-    ul.addEventListener("click", e => {
-        e.target.remove()
+    newImageButton.addEventListener("click", () => {
+        // event.preventDefault()
+        addImage = !addImage;
+        if (addImage) {
+            imageFormContainer.style.display = "block";
+        } else {
+            imageFormContainer.style.display = "none";
+        }
     })
 
-    // Display All Comments
-    image.comments.map(comment => comment.content).forEach(function (item) {
-        let li = document.createElement("li")
-        let text = document.createTextNode(item)
-        li.append(text)
-        ul.append(li)
-    })
-
-    // Like Button For Image
-    let button = document.querySelector(".like-button")
-
-    button.addEventListener("click", () => {
-        fetch("http://localhost:3000/api/v1/images/" + image.id, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                likes: ++image.likes
-            })
-        })
+    function fetchImages() {
+        fetch("http://localhost:3000/api/v1/images")
             .then(response => response.json())
-            .then(updatedImage => {
-                span.innerText = updatedImage.likes + " Likes"
-                image = updatedImage
-            })
-    })
-
-    let form = document.querySelector(".comment-form")
-    let input = document.querySelector(".comment-input")
-
-    // Add New Comment
-    form.addEventListener("submit", () => {
-        event.preventDefault()
-
-        fetch("http://localhost:3000/api/v1/comments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                content: event.target[0].value,
-                imageId: image.id
-            })
-        })
-            .then(response => response.json())
-            .then(newComment => {
-                let li = document.createElement("li")
-                li.textContent = newComment.content
-                ul.appendChild(li)
-                input.value = ""
-            })
-    })
-
-    function createDownVoteButton() {
-        const dislike = document.createElement('button')
-        dislike.innerText = '💔'
-        dislike.className = "dislike"
-        likesBar.append(dislike)
-        return dislike
+            .then(images => showImages(images))
     }
 
-    const dislikeBtn = createDownVoteButton()
+    function showImages(images) {
+        images.forEach(image => displayImage(image))
+    }
 
-    dislikeBtn.addEventListener('click', () => {
+    function displayImage(image) {
 
-        const configObj = {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                likes: --image.likes
+        imageForm.addEventListener("submit", () => {
+            event.preventDefault()
+
+            fetch("http://localhost:3000/api/v1/images", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "title": event.target[0].value,
+                    "url": event.target[1].value,
+                    "likes": 0
+                })
             })
+                .then(response => response.json())
+                .then(newImage => {
+                    displayImage(newImage)
+                    imageForm.reset()
+                    imageFormContainer.style.display = "none"
+                    addImage = !addImage
+                })
+        })
+
+        let divImage = document.createElement("div")
+        divImage.className = "image-card"
+
+        let h2 = document.createElement("h2")
+        h2.className = "title"
+        h2.innerText = image.title
+
+        let buttonDelete = document.createElement('button')
+        buttonDelete.innerText = 'Delete'
+        buttonDelete.className = 'delete-image'
+
+        h2.appendChild(buttonDelete)
+
+        // Delete Image Button
+        buttonDelete.addEventListener('click', () => {
+            fetch(`http://localhost:3000/api/v1/images/${image.id}`, {
+                method: 'DELETE'
+            })
+                .then(() => { divImage.remove() })
+        })
+
+        let img = document.createElement("img")
+        img.className = "image"
+        img.src = image.url
+
+        let divLikes = document.createElement("div")
+        divLikes.className = "likes-section"
+
+        let span = document.createElement("span")
+        span.className = "likes"
+        span.innerText = image.likes + " Likes"
+
+        // Like Button
+        let buttonLikes = document.createElement("button")
+        buttonLikes.className = "like-button"
+        buttonLikes.innerText = "❤️"
+
+        buttonLikes.addEventListener("click", () => {
+            fetch(`http://localhost:3000/api/v1/images/${image.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    likes: ++image.likes
+                })
+            })
+                .then(response => response.json())
+                .then(updatedImage => {
+                    span.innerText = updatedImage.likes + " Likes"
+                    image = updatedImage
+                })
+        })
+
+        // Dislike Button
+        let buttonDislike = document.createElement('button')
+        buttonDislike.innerText = '💔'
+        buttonDislike.className = "dislike"
+
+        buttonDislike.addEventListener('click', () => {
+
+            const configObj = {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    likes: --image.likes
+                })
+            }
+
+            fetch(`http://localhost:3000/api/v1/images/${image.id}`, configObj)
+                .then(res => res.json())
+                .then(updatedImage => {
+                    image = updatedImage
+                    span.innerText = `${image.likes} Likes`
+                })
+
+        })
+
+        let ul = document.createElement("ul")
+        ul.className = "comments"
+        ul.textContent = ""
+
+        let form = document.createElement("form")
+        form.className = "comment-form"
+
+        let input = document.createElement("input")
+        input.className = "comment-input"
+        input.type = "text"
+        input.name = "comment"
+        input.placeholder = "Add a comment..."
+
+        let button = document.createElement("button")
+        button.className = "comment-button"
+        button.type = "submit"
+        button.innerText = "Post"
+
+        let br = document.createElement("br")
+
+        // Add New Comment
+        form.addEventListener("submit", () => {
+            event.preventDefault()
+
+            fetch("http://localhost:3000/api/v1/comments", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    content: event.target[0].value,
+                    image_id: image.id
+                })
+            })
+                .then(response => response.json())
+                .then(newComment => {
+
+                    let li = document.createElement("li")
+                    li.textContent = newComment.content
+
+                    let deleteButton = document.createElement('li')
+                    deleteButton.innerText = 'Delete'
+                    deleteButton.className = 'delete-comment'
+
+                    ul.append(li, deleteButton)
+                    input.value = ""
+                })
+        })
+
+        // Appending Everything
+        form.append(input, button)
+        divLikes.append(span, buttonLikes, buttonDislike)
+        divImage.append(h2, img, divLikes, ul, form)
+        imageContainer.append(br, divImage, br)
+
+        // Fetching Comments
+        function fetchComments() {
+            fetch("http://localhost:3000/api/v1/comments")
+                .then(res => res.json())
+                .then(comments => {
+                    comments.forEach(comment => displayComment(comment))
+                })
         }
 
-        fetch("http://localhost:3000/api/v1/images/" + image.id, configObj)
-            .then(res => res.json())
-            .then(updatedImage => {
-                image = updatedImage
-                span.innerText = `${image.likes} likes`
+        function displayComment(comment) {
+
+            let li = document.createElement('li')
+            li.innerText = comment.content
+
+            let deleteButton = document.createElement('li')
+            deleteButton.innerText = 'Delete'
+            deleteButton.className = 'delete-comment'
+
+            // Delete Comment Button
+            deleteButton.addEventListener('click', () => {
+                fetch(`http://localhost:3000/api/v1/comments/${comment.id}`, {
+                    method: 'DELETE'
+                })
+                    .then(() => {
+                        li.remove(),
+                            deleteButton.remove()
+                    })
             })
+            ul.append(li, deleteButton)
 
-    })
+        }
 
-}
+        fetchComments()
 
-fetchImages()
+    }
+
+    fetchImages()
+
+})

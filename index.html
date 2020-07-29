@@ -8,81 +8,55 @@
   </head>
 
   <body>
-    <!-- logo -->
+    <!-- Logo -->
     <img class="logo" src="assets/dogegram-logo.png" />
 
-    <div id="toy-header">
-      <img
-        src="https://fontmeme.com/permalink/180719/67429e6afec53d21d64643101c43f029.png"
-        alt="toy-header"
-      />
-    </div>
+    <!-- Place Holder -->
+    <div id="image-header"></div>
 
     <div class="container">
-      <form class="add-toy-form">
-        <h3>Create a toy!</h3>
+
+      <form class="add-image-form">
+        <h3>Create A New Post!</h3>
 
         <input
           type="text"
-          name="name"
+          name="title"
           value=""
-          placeholder="Enter a toy's name..."
+          placeholder="Enter Image Title..."
           class="input-text"
         />
-        <br />
+
+        <br>
+
         <input
           type="text"
-          name="image"
+          name="url"
           value=""
-          placeholder="Enter a toy's image URL..."
+          placeholder="Enter Image URL..."
           class="input-text"
         />
-        <br />
+
+        <br>
+
         <input
           type="submit"
           name="submit"
-          value="Create New Toy"
+          value="Create New Image"
           class="submit"
         />
+
       </form>
+
     </div>
-    <p style="text-align: center;">
-      Andy needs your help! <button id="new-toy-btn">Add a new toy!</button>
+
+    <p style="text-align: center">
+      <button id="new-image-btn">Add New Image!</button>
     </p>
 
-    <div id="toy-collection"></div>
+    <div id="image-collection"></div>
 
     <!-- image card -->
-    <div class="image-container">
-
-      <div class="image-card">
-
-        <h2 class="title">Title of image goes here</h2>
-        <img src="./assets/image-placeholder.jpg" class="image" />
-
-        <div class="likes-section">
-          <span class="likes">0 likes</span>
-          <button class="like-button">❤️</button>
-        </div>
-
-        <ul class="comments">
-          <li>Get rid of these comments</li>
-          <li>And replace them with the real ones</li>
-          <li>From the server</li>
-        </ul>
-
-        <form class="comment-form">
-          <input
-            class="comment-input"
-            type="text"
-            name="comment"
-            placeholder="Add a comment..."
-          />
-          <button class="comment-button" type="submit">Post</button>
-        </form>
-        
-      </div>
-
-    </div>
+    <div class="image-container"></div>
   </body>
 </html>
