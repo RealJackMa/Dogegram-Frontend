@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let divImage = document.createElement("div")
         divImage.className = "image-card"
 
+        let titleDiv = document.createElement("div")
+        titleDiv.className = "title-div"
+
         let h2 = document.createElement("h2")
         h2.className = "title"
         h2.innerText = image.title
@@ -38,8 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let buttonDelete = document.createElement('button')
         buttonDelete.innerText = 'Delete'
         buttonDelete.className = 'delete-image'
-
-        h2.appendChild(buttonDelete)
 
         // Delete Image Button
         buttonDelete.addEventListener('click', () => {
@@ -161,9 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
         // Appending Everything
+        titleDiv.append(h2, buttonDelete)
         form.append(input, button)
         divLikes.append(span, buttonLikes, buttonDislike)
-        divImage.append(h2, img, divLikes, ul, form)
+        divImage.append(titleDiv, img, divLikes, ul, form)
         imageContainer.append(br, divImage, br)
 
         // Fetching Comments
@@ -190,11 +192,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     method: 'DELETE'
                 })
                     .then(() => {
-                        li.remove(),
-                            deleteButton.remove()
+                        li.remove(), deleteButton.remove()
                     })
             })
-            ul.append(li, deleteButton)
+
+            if (comment.image_id == image.id) {
+                ul.append(li, deleteButton)
+            }
+            else {
+                ul
+            }
 
         }
 

@@ -1,56 +1,68 @@
-* {
+/* * {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
-}
+}  */
+
 
 body {
+  position: relative;
   height: 100%;
   margin: 0;
   padding: 20px;
   text-align: center;
-  font-family: monospace;
+  font-family: Helvetica;
 }
 
-.logo {
-  margin-bottom: 2px;
-  width: 500px;
+.navbar-brand img {
+  height: 2rem;
+}
+.navbar {
+  padding: .7rem 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: .1rem;
+  font-size: .9rem;
+  transition: background-color .5s ease;
+}
+.navbar-nav li {
+  padding-right: .8rem;
+}
+.navbar-nav .nav-link {
+  color: black;
+  padding-top: .8rem;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: grey;
+}
+.custom-toggler-icon {
+  color: black;
+  font-size: 1.6rem;
+}
+.navbar.solid,
+.navbar.solid-toggle {
+  background: rgba(0, 0, 0, .7)!important;
+  transition: background-color 1s ease;
 }
 
 #image-header {
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   background: white;
-  opacity: .8;
-  padding: 0.2rem;
+  opacity: 0;
+  padding: 2rem;
 }
 
 #image-collection {
   margin: 1rem;
 }
 
-.card {
-  text-align: center;
-  border: grey solid 1px;
-  padding: 1rem;
-  width: 15rem;
-  height: 25rem;
-  display: inline-grid;
-  margin: 1rem 2rem;
-  box-shadow: 3px 4px #e04b52
-}
-
-.toy-avatar {
-  justify-self: center;
-  height: 12rem;
-  width: auto;
-}
-
 button {
   position: relative;
   background-color: #e04b52;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   height: 3rem;
   width: max-content;
   color: whitesmoke;
@@ -70,23 +82,19 @@ button:hover {
   height: auto;
   display: none;
   background: whitesmoke;
-  opacity: .8;
-}
-
-.add-toy-form {
-  width: 80%
+  opacity: 0.99;
 }
 
 .submit {
   position: relative;
   background-color: #e04b52;
-  border-radius: 5px;
+  border-radius: 4px;
   height: 2rem;
   width: max-content;
   color: whitesmoke;
   font-size: 18px;
   justify-self: center;
-  font-family: monospace;
+  font-family: Arial;
   margin: 3px;
 }
 
@@ -98,31 +106,34 @@ button:hover {
 
 
 .input-text {
-  border-radius: 5px;
+  border-radius: 4px;
   height: 2rem;
   width: 60%;
   font-size: 18px;
-  font-family: monospace;
+  font-family: Arial;
   margin: 3px;
 }
 
 .image-container {
   width: 100%;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 
 .image-card {
+  opacity: 0.99;
   width: 500px;
   border: 1px solid #00000020;
-  border-radius: 2px;
+  border-radius: 4px;
   text-align: left;
+  margin-left: auto;
+  margin-right: auto;
   background-color: white;
+  justify-content: center;
 }
 
 .image {
-  width: 500px;
-  /* border: 1px solid black; */
+  width: 498px;
 }
 
 .title {
@@ -131,6 +142,17 @@ button:hover {
   font-size: 0.9rem;
   font-weight: 600;
   color: #000000dd;
+}
+
+.titleDiv{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.delete-image{
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .likes-section {
@@ -167,6 +189,7 @@ button:hover {
   cursor: pointer;
 }
 
+
 .like-button:hover {
   color: rgb(241, 71, 19);
 }
@@ -197,6 +220,10 @@ button:hover {
 
 .comments li:hover {
   color: rgb(184, 184, 184);
+}
+
+.delete-comment {
+  color: rgb(255, 127, 80)
 }
 
 .comment-form {
