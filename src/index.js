@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageContainer = document.querySelector("div.image-container")
 
     newImageButton.addEventListener("click", () => {
-        // event.preventDefault()
         addImage = !addImage;
         if (addImage) {
             imageFormContainer.style.display = "block";
@@ -28,29 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayImage(image) {
-
-        imageForm.addEventListener("submit", () => {
-            event.preventDefault()
-
-            fetch("http://localhost:3000/api/v1/images", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "title": event.target[0].value,
-                    "url": event.target[1].value,
-                    "likes": 0
-                })
-            })
-                .then(response => response.json())
-                .then(newImage => {
-                    displayImage(newImage)
-                    imageForm.reset()
-                    imageFormContainer.style.display = "none"
-                    addImage = !addImage
-                })
-        })
 
         let divImage = document.createElement("div")
         divImage.className = "image-card"
@@ -93,7 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch(`http://localhost:3000/api/v1/images/${image.id}`, {
                 method: "PATCH",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
                 },
                 body: JSON.stringify({
                     likes: ++image.likes
@@ -117,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    Accept: "application/json"
                 },
                 body: JSON.stringify({
                     likes: --image.likes
@@ -159,7 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch("http://localhost:3000/api/v1/comments", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
                 },
                 body: JSON.stringify({
                     content: event.target[0].value,
@@ -224,5 +203,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     fetchImages()
+
+    // Adding a new image.
+    imageForm.addEventListener("submit", () => {
+        event.preventDefault()
+
+        fetch("http://localhost:3000/api/v1/images", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                "title": event.target[0].value,
+                "url": event.target[1].value,
+                "likes": 0
+            })
+        })
+            .then(response => response.json())
+            .then(newImage => {
+                displayImage(newImage)
+                imageForm.reset()
+                imageFormContainer.style.display = "none"
+                addImage = !addImage
+            })
+    })
 
 })
