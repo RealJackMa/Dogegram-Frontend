@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Dogegram</title>
-	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-	  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <script defer type="text/javascript" src="src/index.js"></script>
     <script async type="text/javascript" src="src/background.js"></script>
     <style>
-      body, html {
+      body,
+      html {
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-  
+
         margin: 0;
         padding: 0;
       }
@@ -27,34 +45,37 @@
         position: fixed;
         top: 0;
         left: 0;
-  
+
         z-index: -100;
       }
     </style>
   </head>
 
   <body data-spy="scroll" data-target="#navbarResponsive">
-
     <canvas id="background"></canvas>
 
-		<nav class="navbar navbar-expand-lg fixed-top">
-			<div class="container-fluid">
-				<a href="#home" class="navbar-brand"><img src="assets/dogegram-logo.png" alt=""></a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-					<span class="custom-toggler-icon"><i class="fas fa-bars"></i></span>
-				</button>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+        <a href="#home" class="navbar-brand"
+          ><img src="assets/dogegram-logo.png" alt=""
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+        >
+          <span class="custom-toggler-icon"><i class="fas fa-bars"></i></span>
+        </button>
 
-				<div class="collapse navbar-collapse" id="navbarResponsive">
-					<ul class="navbar-nav ml-auto">
-            
-						<li class="nav-item">
-							<button id="new-image-btn">Add New Image!</button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <button id="new-image-btn">Add New Image!</button>
             </li>
-            
-					</ul>
-				</div>
-
-			</div>
+          </ul>
+        </div>
+      </div>
     </nav>
 
     <!-- Place Holder -->
@@ -62,7 +83,6 @@
 
     <!-- New Post Container -->
     <div id="image-forms" class="container">
-
       <!-- New Post Form -->
       <form class="add-image-form">
         <h3>Create A New Post!</h3>
@@ -75,7 +95,7 @@
           class="input-text"
         />
 
-        <br>
+        <br />
 
         <input
           type="text"
@@ -85,7 +105,7 @@
           class="input-text"
         />
 
-        <br>
+        <br />
 
         <input
           type="submit"
@@ -93,9 +113,7 @@
           value="Create New Image"
           class="submit"
         />
-
       </form>
-
     </div>
 
     <!-- Image Container -->

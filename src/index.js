@@ -31,9 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let divImage = document.createElement("div")
         divImage.className = "image-card"
 
-        let titleDiv = document.createElement("div")
-        titleDiv.className = "title-div"
-
         let h2 = document.createElement("h2")
         h2.className = "title"
         h2.innerText = image.title
@@ -41,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let buttonDelete = document.createElement('button')
         buttonDelete.innerText = 'Delete'
         buttonDelete.className = 'delete-image'
+
+        h2.appendChild(buttonDelete)
 
         // Delete Image Button
         buttonDelete.addEventListener('click', () => {
@@ -149,23 +148,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(response => response.json())
                 .then(newComment => {
 
-                    let li = document.createElement("li")
-                    li.textContent = newComment.content
+                    displayComment(newComment)
 
-                    let deleteButton = document.createElement('li')
-                    deleteButton.innerText = 'Delete'
-                    deleteButton.className = 'delete-comment'
-
-                    ul.append(li, deleteButton)
-                    input.value = ""
                 })
         })
 
         // Appending Everything
-        titleDiv.append(h2, buttonDelete)
         form.append(input, button)
         divLikes.append(span, buttonLikes, buttonDislike)
-        divImage.append(titleDiv, img, divLikes, ul, form)
+        divImage.append(h2, img, divLikes, ul, form)
         imageContainer.append(br, divImage, br)
 
         // Fetching Comments
@@ -202,6 +193,8 @@ document.addEventListener("DOMContentLoaded", () => {
             else {
                 ul
             }
+
+            input.value = ""
 
         }
 
